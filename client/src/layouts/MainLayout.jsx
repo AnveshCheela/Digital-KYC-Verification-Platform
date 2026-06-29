@@ -2,7 +2,7 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export default function MainLayout() {
-  const { user, isAuthenticated, logout, isAdmin } = useAuth();
+  const { isAuthenticated, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {

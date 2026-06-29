@@ -3,7 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useEffect } from 'react';
 
 export default function AdminLayout() {
-  const { user, isAuthenticated, logout, isAdmin } = useAuth();
+  const { isAuthenticated, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
