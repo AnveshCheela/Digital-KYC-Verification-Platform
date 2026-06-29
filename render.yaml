@@ -1,4 +1,7 @@
 services:
+  - type: redis
+    name: verifyflow-redis
+    ipAllowList: [] # Internal access only
   - type: web
     name: verifyflow-api
     env: node
@@ -49,7 +52,3 @@ databases:
   - name: verifyflow-db
     databaseName: verifyflow
     user: verifyflow
-
-  - type: redis
-    name: verifyflow-redis
-    ipAllowList: [] # Internal access only
