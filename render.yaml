@@ -4,8 +4,8 @@ services:
     env: node
     plan: free
     rootDir: server
-    buildCommand: npm install && npm run migrate
-    startCommand: node src/main.js
+    buildCommand: npm install
+    startCommand: npm run migrate && node src/main.js
     envVars:
       - key: NODE_ENV
         value: production
