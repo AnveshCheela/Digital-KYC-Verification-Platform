@@ -1,0 +1,102 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-verifyflow}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-verifyflow_secret}
+      POSTGRES_DB: ${DB_NAME:-verifyflow}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-verifyflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory-policy noeviction
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: sh -c "npm run migrate && npm start"
+    ports:
+      - "5001:5000"
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-verifyflow}
+      DB_PASSWORD: ${DB_PASSWORD:-verifyflow_secret}
+      DB_NAME: ${DB_NAME:-verifyflow}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: ${JWT_SECRET:-default_jwt_secret_change_me}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-default_refresh_secret_change_me}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-VerifyFlow <noreply@verifyflow.com>}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: node src/workers/index.js
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-verifyflow}
+      DB_PASSWORD: ${DB_PASSWORD:-verifyflow_secret}
+      DB_NAME: ${DB_NAME:-verifyflow}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-VerifyFlow <noreply@verifyflow.com>}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
+  redisdata:
+  uploads:

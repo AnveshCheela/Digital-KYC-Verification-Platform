@@ -1,0 +1,49 @@
+{
+  "name": "verifyflow-server",
+  "version": "1.0.0",
+  "description": "VerifyFlow KYC Verification Platform — Backend API & Workers",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "worker": "node src/workers/index.js",
+    "worker:dev": "nodemon src/workers/index.js",
+    "migrate": "node src/db/migrate.js",
+    "seed": "node src/db/seed.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@google/genai": "^2.10.0",
+    "bcryptjs": "^2.4.3",
+    "bullmq": "^5.12.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.0",
+    "resend": "^3.5.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/workers/**",
+      "!src/db/**"
+    ]
+  }
+}

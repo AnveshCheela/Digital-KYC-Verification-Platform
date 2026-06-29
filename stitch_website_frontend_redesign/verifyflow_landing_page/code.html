@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VerifyFlow - Identity Verification for Modern Fintech</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f7f9fb",
+                      "error": "#EF4444",
+                      "primary-fixed-dim": "#bec6e0",
+                      "surface-container-high": "#e6e8ea",
+                      "outline": "#76777d",
+                      "on-primary-container": "#7c839b",
+                      "on-surface-variant": "#45464d",
+                      "tertiary": "#000000",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#d8e2ff",
+                      "background": "#f7f9fb",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "inverse-surface": "#2d3133",
+                      "primary-fixed": "#dae2fd",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#0058be",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "tertiary-container": "#0b1c30",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#eceef0",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "warning": "#F59E0B",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#004395",
+                      "primary": "#000000",
+                      "on-background": "#191c1e",
+                      "surface-border": "#E2E8F0",
+                      "on-surface": "#191c1e",
+                      "on-tertiary-container": "#75859d",
+                      "on-secondary-container": "#fefcff",
+                      "success": "#10B981",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "surface": "#f7f9fb",
+                      "surface-container-low": "#f2f4f6",
+                      "tertiary-fixed": "#d3e4fe",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "primary-container": "#131b2e",
+                      "surface-dim": "#d8dadc",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#131b2e",
+                      "secondary-container": "#2170e4",
+                      "on-secondary-fixed": "#001a42",
+                      "surface-variant": "#e0e3e5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "8px",
+                      "container-max": "1280px",
+                      "xxl": "48px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "xxs": "4px",
+                      "sm": "12px",
+                      "base": "4px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "code": [
+                              "monospace"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-high w-full top-0 sticky z-50 border-b border-surface-border dark:border-outline-variant">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-on-primary-fixed">
+                VerifyFlow
+            </div>
+<div class="hidden md:flex gap-lg items-center font-label-md text-label-md">
+<a class="text-secondary dark:text-secondary-fixed border-b-2 border-secondary dark:border-secondary-fixed pb-1 cursor-pointer active:opacity-80" href="#">Features</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed transition-colors cursor-pointer active:opacity-80" href="#">Solutions</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed transition-colors cursor-pointer active:opacity-80" href="#">Developers</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed transition-colors cursor-pointer active:opacity-80" href="#">Queue</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed transition-colors cursor-pointer active:opacity-80" href="#">Audit</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="bg-secondary text-on-secondary px-md py-sm rounded font-label-md hover:opacity-90 transition-opacity">Logout</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="py-xxl px-gutter max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-xl">
+<div class="w-full md:w-1/2 flex flex-col gap-lg">
+<h1 class="font-headline-xl text-headline-xl text-primary md:text-[48px] md:leading-[56px]">Identity Verification for Modern Fintech.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                    Automate your KYC with OCR and fraud-aware logic. Built for speed, precision, and compliance at scale.
+                </p>
+<div class="flex gap-md mt-sm">
+<button class="bg-secondary text-on-secondary px-lg py-md rounded font-label-md hover:opacity-90 transition-opacity">Get API Keys</button>
+<button class="border border-tertiary text-tertiary px-lg py-md rounded font-label-md hover:bg-surface-container-low transition-colors">Read Docs</button>
+</div>
+</div>
+<div class="w-full md:w-1/2 rounded-xl overflow-hidden border border-surface-border relative h-[400px] bg-surface-container-low">
+<div class="absolute inset-0 flex items-center justify-center text-outline">
+<img class="object-cover w-full h-full" data-alt="A highly abstract, modern 3D rendering of a secure data pipeline. The scene features translucent, glowing geometric shapes resembling data packets flowing through a structured grid. The lighting is high-key, bright, and clinical, utilizing stark whites, subtle slate grays, and intense accents of action blue (#3B82F6) to signify active processing. The overall aesthetic is clean, corporate, and technologically advanced, conveying absolute security and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHoKDh20z1Kp-4YJqPVPKRaZndwbi96_Qwt5yXc3VJGg0Db9Hxz0cVY3gB7vORjJJT3N8S7Lf0BiR5dp1N0ngvfH8Ute7lFiOeGdOjkquYp0w3xDtMoc9qI0LlzMC2paJMpYrJXlxDdUViVyCx6_7AiSDybWYsvEcVJNsipGAYcrCrO8bz8ZgkaI96ovz5NLrK1-8GuRziRJs_E92k97fFduyV3_69IMupm7O8Zq1BMn9oZA-q83UIJq1eMaQQUOgm_wVrYCjAkkLl"/>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-xxl px-gutter max-w-container-max mx-auto bg-surface">
+<div class="mb-xl text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary">Engineered for Accuracy</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">Comprehensive tools to manage the verification lifecycle.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Queue-based processing -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest border border-surface-border rounded-xl p-lg flex flex-col gap-md h-full">
+<div class="flex items-center gap-sm text-secondary">
+<span class="material-symbols-outlined">queue</span>
+<h3 class="font-headline-md text-headline-md">Queue-based processing</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        Manage high volumes of verification requests efficiently. Our intelligent queue system prioritizes cases based on risk score and SLA requirements.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-border">
+<div class="flex gap-sm">
+<span class="bg-surface-container text-on-surface-variant px-sm py-xxs rounded text-label-sm font-label-sm">High Priority</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xxs rounded text-label-sm font-label-sm">SLA: 5 min</span>
+</div>
+</div>
+</div>
+<!-- Real-time OCR -->
+<div class="col-span-1 bg-surface-container-lowest border border-surface-border rounded-xl p-lg flex flex-col gap-md h-full">
+<div class="flex items-center gap-sm text-secondary">
+<span class="material-symbols-outlined">document_scanner</span>
+<h3 class="font-headline-md text-headline-md">Real-time OCR</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        Instant extraction for PAN, Aadhaar, and passports with 99.8% accuracy.
+                    </p>
+</div>
+<!-- Fraud detection engine -->
+<div class="col-span-1 bg-surface-container-lowest border border-surface-border rounded-xl p-lg flex flex-col gap-md h-full">
+<div class="flex items-center gap-sm text-secondary">
+<span class="material-symbols-outlined">security</span>
+<h3 class="font-headline-md text-headline-md">Fraud detection</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        Advanced heuristics detect deepfakes, tampered documents, and synthetic identities in real-time.
+                    </p>
+</div>
+<!-- Audit logs -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest border border-surface-border rounded-xl p-lg flex flex-col gap-md h-full">
+<div class="flex items-center gap-sm text-secondary">
+<span class="material-symbols-outlined">history</span>
+<h3 class="font-headline-md text-headline-md">Immutable Audit Logs</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        Every action, decision, and system check is cryptographically logged for compliance and internal review.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Developer Section -->
+<section class="py-xxl px-gutter max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-xl">
+<div class="w-full md:w-1/2 flex flex-col gap-lg order-2 md:order-1">
+<div class="bg-primary-container rounded-xl p-lg font-code text-code text-on-primary-fixed overflow-x-auto">
+<pre><code>const verify = await VerifyFlow.create({
+  documentType: 'aadhaar',
+  frontImage: fileFront,
+  backImage: fileBack,
+  options: {
+    livenessCheck: true,
+    fraudDetection: 'strict'
+  }
+});
+
+console.log(verify.status); // "verified"
+</code></pre>
+</div>
+</div>
+<div class="w-full md:w-1/2 flex flex-col gap-lg order-1 md:order-2">
+<h2 class="font-headline-lg text-headline-lg text-primary">Built for developers</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    Integrate identity verification into your flow in minutes, not weeks. Our RESTful API and comprehensive SDKs provide granular control over the verification process.
+                </p>
+<div>
+<a class="text-secondary font-label-md text-label-md flex items-center gap-xs hover:underline" href="#">
+                        View API Documentation <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="py-xxl px-gutter max-w-container-max mx-auto bg-surface-container-low text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xl">Enterprise-Grade Security</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="flex flex-col items-center gap-sm">
+<span class="material-symbols-outlined text-[48px] text-secondary">verified_user</span>
+<h4 class="font-headline-md text-headline-md">SOC2 Type II Certified</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Independently audited for security, availability, and confidentiality.</p>
+</div>
+<div class="flex flex-col items-center gap-sm">
+<span class="material-symbols-outlined text-[48px] text-secondary">lock</span>
+<h4 class="font-headline-md text-headline-md">End-to-End Encryption</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Data is encrypted at rest (AES-256) and in transit (TLS 1.3).</p>
+</div>
+<div class="flex flex-col items-center gap-sm">
+<span class="material-symbols-outlined text-[48px] text-secondary">policy</span>
+<h4 class="font-headline-md text-headline-md">Global Compliance</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Designed to help you meet GDPR, CCPA, and regional KYC/AML regulations.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-highest w-full border-t border-surface-border dark:border-outline-variant mt-auto">
+<div class="w-full py-xl px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="font-label-md text-label-md font-bold text-primary dark:text-on-primary-fixed">
+                VerifyFlow
+            </div>
+<div class="flex gap-md font-body-sm text-body-sm">
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-on-primary-fixed transition-colors cursor-default" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-on-primary-fixed transition-colors cursor-default" href="#">Security Standards</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-on-primary-fixed transition-colors cursor-default" href="#">Terms of Service</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-on-primary-fixed transition-colors cursor-default" href="#">Compliance</a>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface">
+                © 2024 VerifyFlow Identity Systems. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

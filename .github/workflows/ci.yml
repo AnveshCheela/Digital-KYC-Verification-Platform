@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Install Client Dependencies
+      working-directory: ./client
+      run: npm ci
+
+    - name: Run Frontend Linter
+      working-directory: ./client
+      run: npm run lint
+
+    - name: Install Server Dependencies
+      working-directory: ./server
+      run: npm ci
+
+    - name: Run Backend Tests
+      working-directory: ./server
+      run: npm test
+
+    - name: Test Docker Compose Build
+      run: docker-compose build
