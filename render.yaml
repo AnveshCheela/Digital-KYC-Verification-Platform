@@ -1,13 +1,11 @@
 services:
-  - type: redis
-    name: verifyflow-redis
-    ipAllowList: [] # Internal access only
   - type: web
     name: verifyflow-api
     env: node
+    plan: free
     rootDir: server
     buildCommand: npm install && npm run migrate
-    startCommand: npm start
+    startCommand: node src/main.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -27,28 +25,13 @@ services:
       - key: GEMINI_API_KEY
         sync: false
 
-  - type: worker
-    name: verifyflow-worker
-    env: node
-    rootDir: server
-    buildCommand: npm install
-    startCommand: npm run worker
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: DATABASE_URL
-        fromDatabase:
-          name: verifyflow-db
-          property: connectionString
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: verifyflow-redis
-          property: connectionString
-      - key: GEMINI_API_KEY
-        sync: false
+  - type: redis
+    name: verifyflow-redis
+    plan: free
+    ipAllowList: [] # Internal access only
 
 databases:
   - name: verifyflow-db
     databaseName: verifyflow
     user: verifyflow
+    plan: free
