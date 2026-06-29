@@ -5,11 +5,13 @@ const { GoogleGenAI } = require('@google/genai');
 const pool = require('../config/database');
 const { invalidateCache } = require('../middleware/cache');
 
-const connection = new IORedis({
-  host: process.env.REDIS_HOST || 'localhost',
-  port: parseInt(process.env.REDIS_PORT) || 6379,
-  maxRetriesPerRequest: null,
-});
+const connection = process.env.REDIS_URL
+  ? new IORedis(process.env.REDIS_URL, { maxRetriesPerRequest: null })
+  : new IORedis({
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT) || 6379,
+      maxRetriesPerRequest: null,
+    });
 
 /**
  * AI OCR Worker — the first stage of the verification pipeline.
