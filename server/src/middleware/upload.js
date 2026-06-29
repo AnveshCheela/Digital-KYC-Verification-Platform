@@ -11,9 +11,15 @@ const ALLOWED_MIMES = [
   'image/webp',
 ];
 
+const fs = require('fs');
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', '..', UPLOAD_DIR));
+    const uploadPath = path.join(__dirname, '..', '..', UPLOAD_DIR);
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
